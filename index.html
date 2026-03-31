@@ -300,12 +300,115 @@ footer{padding:2rem;text-align:center;border-top:1px solid rgba(184,134,11,.15);
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--ink)}
 ::-webkit-scrollbar-thumb{background:var(--brass)}
 
-@media(max-width:768px){
-  nav{padding:1rem 1.5rem}.nav-links{gap:1.2rem}
-  .about-grid,.contact-wrapper{grid-template-columns:1fr;gap:2.5rem}
+/* ── HAMBURGER ── */
+.nav-hamburger{display:none;flex-direction:column;gap:5px;
+  background:none;border:none;cursor:pointer;padding:.4rem;z-index:300}
+.nav-hamburger span{display:block;width:24px;height:2px;
+  background:var(--brass-light);transition:all .3s;transform-origin:center}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ── TABLET (max 900px) ── */
+@media(max-width:900px){
+  section{padding:4.5rem 1.8rem}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .contact-wrapper{grid-template-columns:1fr;gap:2.5rem}
   .contact-illustration{display:none}
-  .timeline{padding-left:2rem}.timeline-dot{left:-1.65rem}
-  .clue-fragment{width:150px}.clue-board{min-height:820px}
+  .skills-columns{grid-template-columns:repeat(2,1fr)}
+  .clue-board{min-height:900px}
+  .clue-fragment{width:160px}
+}
+
+/* ── MOBILE (max 640px) ── */
+@media(max-width:640px){
+  /* Nav — hamburger */
+  nav{padding:.85rem 1.2rem;background:rgba(26,18,8,.98)}
+  .nav-hamburger{display:flex}
+  .nav-links{
+    display:none;flex-direction:column;gap:0;
+    position:fixed;top:0;left:0;right:0;bottom:0;
+    background:rgba(13,10,6,.97);
+    align-items:center;justify-content:center;
+    z-index:250;
+  }
+  .nav-links.open{display:flex}
+  .nav-links li{width:100%;text-align:center;border-bottom:1px solid rgba(184,134,11,.1)}
+  .nav-links a{display:block;padding:1.2rem;font-size:1.1rem;letter-spacing:.2em}
+
+  /* Hero */
+  #hero{padding:5rem 1.2rem 3rem}
+  .hero-eyebrow{font-size:.7rem;letter-spacing:.2em}
+  .hero-tagline{font-size:1rem;padding:0 .5rem}
+  .hero-cta{font-size:.78rem;padding:.7rem 1.5rem}
+  .pipe-deco{display:none}
+
+  /* Sections */
+  section{padding:3.5rem 1.2rem}
+  .section-header{gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem}
+  .section-title{font-size:1.7rem}
+  .case-number{font-size:.6rem}
+  .section-title-line{display:none}
+
+  /* Dossier */
+  .about-dossier{padding:1.8rem 1.4rem}
+  .about-text p{font-size:1rem}
+  .about-text p:first-child::first-letter{font-size:2.8rem}
+  .about-quote{padding:1rem 1.3rem;font-size:1rem}
+
+  /* Clue board — scroll-based stack on mobile */
+  .clue-board-intro{font-size:.88rem}
+  .clue-board{
+    min-height:unset !important;
+    display:flex;flex-direction:column;gap:2rem;
+    padding:1.5rem 1rem;overflow:visible;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 50%,rgba(61,43,31,.3) 0%,transparent 70%),
+      repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(184,134,11,.04) 39px,rgba(184,134,11,.04) 40px),
+      repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(184,134,11,.04) 39px,rgba(184,134,11,.04) 40px);
+  }
+  #stringCanvas{display:none}
+  .clue-fragment{
+    position:relative !important;
+    top:unset !important;left:unset !important;
+    width:100% !important;
+    transform:none !important;
+    cursor:pointer;
+  }
+  .clue-fragment:nth-child(odd){transform:rotate(-1deg) !important}
+  .clue-fragment:nth-child(even){transform:rotate(1deg) !important}
+  .clue-paper{padding:1.1rem 1.2rem 1.4rem}
+  .clue-title{font-size:1rem}
+  .clue-body-preview{font-size:.85rem}
+  .clue-hint{font-size:.65rem}
+  .clue-pin{left:1.5rem;transform:none}
+
+  /* Expanded overlay */
+  .clue-expanded{
+    max-width:100%;margin:.5rem;
+    padding:2rem 1.5rem 1.8rem;
+    max-height:90vh;overflow-y:auto;
+  }
+  .clue-exp-title{font-size:1.25rem}
+  .clue-exp-body{font-size:.95rem}
+
+  /* Skills */
+  .skills-columns{grid-template-columns:1fr}
+  .skill-card{padding:1.5rem}
+
+  /* Timeline */
+  .timeline{padding-left:1.8rem}
+  .timeline-dot{left:-1.45rem}
+  .timeline-role{font-size:1.1rem}
+  .timeline-bullets li{font-size:.95rem}
+
+  /* Contact */
+  .contact-dispatch{font-size:1.8rem}
+  .contact-link{padding:.85rem 1.1rem}
+  .contact-link-value{font-size:.88rem;word-break:break-all}
+
+  /* Footer */
+  footer{font-size:.72rem;padding:1.5rem 1rem;letter-spacing:.05em}
 }
 </style>
 </head>
@@ -313,12 +416,15 @@ footer{padding:2rem;text-align:center;border-top:1px solid rgba(184,134,11,.15);
 
 <nav>
   <a class="nav-monogram" href="#hero">A.G.</a>
-  <ul class="nav-links">
-    <li><a href="#about">Dossier</a></li>
-    <li><a href="#clues">Evidence</a></li>
-    <li><a href="#skills">Arsenal</a></li>
-    <li><a href="#experience">Record</a></li>
-    <li><a href="#contact">Dispatch</a></li>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about" class="nav-close">Dossier</a></li>
+    <li><a href="#clues" class="nav-close">Evidence</a></li>
+    <li><a href="#skills" class="nav-close">Arsenal</a></li>
+    <li><a href="#experience" class="nav-close">Record</a></li>
+    <li><a href="#contact" class="nav-close">Dispatch</a></li>
   </ul>
 </nav>
 
@@ -366,7 +472,7 @@ footer{padding:2rem;text-align:center;border-top:1px solid rgba(184,134,11,.15);
         </div>
         <div class="dossier-field">
           <div class="dossier-label">Communiqué</div>
-          <div class="dossier-value"><a href="mailto:goyalarnav36@gmail.com">goyalarnav36@gmail.com</a></div>
+          <div class="dossier-value"><a href="/cdn-cgi/l/email-protection#3e5951475f525f4c505f480d087e59535f5752105d5153"><span class="__cf_email__" data-cfemail="89eee6f0e8e5e8fbe7e8ffbabfc9eee4e8e0e5a7eae6e4">[email&#160;protected]</span></a></div>
         </div>
         <div class="dossier-field">
           <div class="dossier-label">Intelligence Archives</div>
@@ -591,9 +697,9 @@ footer{padding:2rem;text-align:center;border-top:1px solid rgba(184,134,11,.15);
         <div class="contact-dispatch">Send a<br/><em>telegram,</em><br/>if you dare.</div>
         <p class="contact-note">Whether you have a case worth investigating or simply wish to make an acquaintance — the lines are open. Every great collaboration begins with a single message.</p>
         <div class="contact-links">
-          <a href="mailto:goyalarnav36@gmail.com" class="contact-link">
+          <a href="/cdn-cgi/l/email-protection#4720283e262b2635292631747107202a262e2b6924282a" class="contact-link">
             <span class="contact-link-icon">✉</span>
-            <span><span class="contact-link-label">Communiqué</span><span class="contact-link-value">goyalarnav36@gmail.com</span></span>
+            <span><span class="contact-link-label">Communiqué</span><span class="contact-link-value"><span class="__cf_email__" data-cfemail="9ff8f0e6fef3feedf1fee9aca9dff8f2fef6f3b1fcf0f2">[email&#160;protected]</span></span></span>
           </a>
           <a href="https://linkedin.com/in/arnavgoyal27/" target="_blank" class="contact-link">
             <span class="contact-link-icon">🔗</span>
@@ -620,7 +726,7 @@ footer{padding:2rem;text-align:center;border-top:1px solid rgba(184,134,11,.15);
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const CLUES = [
   {
     tag:'File № C-001 · Active', title:'MATE ROV',
@@ -780,6 +886,22 @@ document.getElementById('clueClose').addEventListener('click',()=>{
 });
 document.getElementById('clueOverlay').addEventListener('click',e=>{
   if(e.target===e.currentTarget) e.currentTarget.classList.remove('open');
+});
+
+// ─── Hamburger menu ───
+const ham=document.getElementById('navHamburger');
+const navMenu=document.getElementById('navLinks');
+ham.addEventListener('click',()=>{
+  ham.classList.toggle('open');
+  navMenu.classList.toggle('open');
+  document.body.style.overflow=navMenu.classList.contains('open')?'hidden':'';
+});
+document.querySelectorAll('.nav-close').forEach(a=>{
+  a.addEventListener('click',()=>{
+    ham.classList.remove('open');
+    navMenu.classList.remove('open');
+    document.body.style.overflow='';
+  });
 });
 
 window.addEventListener('load',drawStrings);
